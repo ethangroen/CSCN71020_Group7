@@ -19,7 +19,14 @@ int main() {
 			printf_s("Triangle selected.\n");
 			int triangleSides[3] = { 0, 0, 0 };
 			int* triangleSidesPtr = getTriangleSides(triangleSides);
-			//printf_s("! %d\n", triangleSidesPtr[0]);
+			bool status = isTriangleValid(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+			while (status != true) {
+				printf("\nTriangle was not valid.\n");
+				triangleSidesPtr = getTriangleSides(triangleSides);
+				status = isTriangleValid(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+			}
+			printf("A triangle was succesfully formed\n");
+			getTriangleAngle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			printf_s("%s\n", result);
 			break;
