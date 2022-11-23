@@ -10,9 +10,7 @@ char* analyzeTriangle(int side1, int side2, int side3) {
 	else if (side1 == side2 && side1 == side3) {
 		result = "Equilateral triangle";	
 	}
-	else if ((side1 == side2 && side1 != side3) || 
-		(side1 == side3 && side1 != side2))
-	{
+	else if ((side1 == side2 && side1 != side3) ||  (side1 == side3 && side1 != side2)) {
 		result = "Isosceles triangle";
 	}
 	else {

@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "triangleSolver.h"
+#include "rectangleSolver.h"
 
 int side = 0;
 
@@ -19,19 +20,38 @@ int main() {
 			printf_s("Triangle selected.\n");
 			int triangleSides[3] = { 0, 0, 0 };
 			int* triangleSidesPtr = getTriangleSides(triangleSides);
-			bool status = isTriangleValid(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
-			while (status != true) {
+			bool triangleStatus = isTriangleValid(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+			while (triangleStatus != true) {
 				printf("\nTriangle was not valid.\n");
 				triangleSidesPtr = getTriangleSides(triangleSides);
-				status = isTriangleValid(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+				triangleStatus = isTriangleValid(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			}
 			printf("A triangle was succesfully formed\n");
 			getTriangleAngle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
-			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
-			printf_s("%s\n", result);
+			char* triangleResult = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+			printf_s("%s\n", triangleResult);
+			break;
+		case 2:
+			printf("Rectangle selected.\n");
+			int rectanglePoints[8];
+			int* rectanglePointsPtr = getRectanglePoints(rectanglePoints);
+			int* corners = findRectangleCorners(rectanglePointsPtr);;
+			double* sides = findRectangleSides(corners);
+			bool rectangleStatus = analyzeRectangle(sides[0], sides[1]);
+			while (rectangleStatus != true) {
+				rectanglePointsPtr = getRectanglePoints(rectanglePoints);
+				corners = findRectangleCorners(rectanglePointsPtr);;
+				sides = findRectangleSides(corners);
+				rectangleStatus = analyzeRectangle(sides[0], sides[1]);
+			}
+			printf("Length: %lf\nHeight: %lf", sides[0], sides[1]);
+			findRectanglePerimeter(sides[0], sides[1]);
+			findRectangleArea(sides[0], sides[1]);
 			break;
 		case 0:
 			continueProgram = false;
+			break;
+		case '\n':
 			break;
 		default:
 			printf_s("Invalid value entered.\n");
@@ -51,12 +71,13 @@ void printWelcome() {
 
 int printShapeMenu() {
 	printf_s("1. Triangle\n");
+	printf_s("2. Rectangle\n");
 	printf_s("0. Exit\n");
 
 	int shapeChoice;
 
 	printf_s("Enter number: ");
-	scanf_s("%1o", &shapeChoice);
+	scanf_s("%d", &shapeChoice);
 
 	return shapeChoice;
 }
@@ -69,3 +90,15 @@ int* getTriangleSides(int* triangleSides) {
 	}
 	return triangleSides;
 }
+
+int* getRectanglePoints(int* rectanglePoints) {
+	printf("Enter the coordinates of the corners of the rectangle (x value followed by y value)");
+	fseek(stdin, 0, SEEK_END);
+	for (int i = 0; i < 8; i++)
+	{
+		printf("\nenter: ");
+		scanf_s("%d", &rectanglePoints[i]);
+	}
+	return rectanglePoints;
+}
+
