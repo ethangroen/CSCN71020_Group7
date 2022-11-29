@@ -3,15 +3,15 @@
 bool analyzeRectangle(double length, double height) {
 	bool result;
 	if (length < 0 || height < 0) {
-		printf("Not a rectangle. Please enter anew set of points:");
+		printf("\nNot a rectangle. Please enter anew set of points:");
 		result = false;
 	}
 	else if ( length == height) {
-		printf("A square was successfully formed.");
+		printf("\nA square was successfully formed.");
 		result = true;
 	}
 	else {
-		printf("A rectangle was successfully formed.");
+		printf("\nA rectangle was successfully formed.");
 		result = true;
 	}
 	return result;
@@ -24,7 +24,7 @@ int* findRectangleCorners(int points[]) {
 	rectangleMidPoint[0] = ((points[0] + points[2] + points[4] + points[6]) / 4);
 	rectangleMidPoint[1] = ((points[1] + points[3] + points[5] + points[7]) / 4);
 
-	for (int i = 0; i < 8; i+=2) {
+	for (int i = 0; i <= 6; i+=2) {
 		if (points[i] < rectangleMidPoint[0] && points[i+1] > rectangleMidPoint[1]) {
 			corners[0] = points[i];
 			corners[1] = points[i + 1];
@@ -34,21 +34,12 @@ int* findRectangleCorners(int points[]) {
 		} else if (points[i] < rectangleMidPoint[0] && points[i+1] < rectangleMidPoint[1]) {
 			corners[4] = points[i];
 			corners[5] = points[i + 1];
-		} else if (points[i] > rectangleMidPoint[0] && points[i + 1] < rectangleMidPoint[1]) {
+		} else {
 			corners[6] = points[i];
 			corners[7] = points[i + 1];
 		}
 	}
 	return corners;
-}
-
-double* findRectangleSides(int corners[]) {
-	double rectangleSides[2];
-
-	rectangleSides[0] = sqrt(pow((corners[6] - corners[4]), 2) + pow((corners[7] - corners[5]), 2));
-	rectangleSides[1] = sqrt(pow((corners[2] - corners[0]), 2) + pow((corners[6] - corners[4]), 2));
-
-	return rectangleSides;
 }
 
 void findRectanglePerimeter(double length, double height) {

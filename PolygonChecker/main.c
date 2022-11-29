@@ -4,11 +4,14 @@
 #include "main.h"
 #include "triangleSolver.h"
 #include "rectangleSolver.h"
+#include "math.h"
 
 int side = 0;
 
 int main() {
 	bool continueProgram = true;
+	int* corners;
+	double* sides;
 	while (continueProgram) {
 		printWelcome();
 
@@ -35,16 +38,25 @@ int main() {
 			printf("Rectangle selected.\n");
 			int rectanglePoints[8];
 			int* rectanglePointsPtr = getRectanglePoints(rectanglePoints);
-			int* corners = findRectangleCorners(rectanglePointsPtr);;
-			double* sides = findRectangleSides(corners);
+
+			corners = findRectangleCorners(rectanglePointsPtr);
+
+			double sides[2];
+			sides[0] = sqrt(pow((corners[6] - corners[4]), 2) + pow((corners[7] - corners[5]), 2));
+			printf("\nLength: %lf", sides[0]);
+			sides[1] = sqrt((pow((corners[0] - corners[4]), 2)) + (pow((corners[1] - corners[5]), 2)));
+			printf("\nHeight: %lf", sides[1]);
+
 			bool rectangleStatus = analyzeRectangle(sides[0], sides[1]);
 			while (rectangleStatus != true) {
 				rectanglePointsPtr = getRectanglePoints(rectanglePoints);
 				corners = findRectangleCorners(rectanglePointsPtr);;
-				sides = findRectangleSides(corners);
+				sides[0] = sqrt(pow((corners[6] - corners[4]), 2) + pow((corners[7] - corners[5]), 2));
+				printf("\nLength: %lf", sides[0]);
+				sides[1] = sqrt((pow((corners[2] - corners[0]), 2)) + (pow((corners[3] - corners[1]), 2)));
+				printf("\nHeight: %lf", sides[1]);
 				rectangleStatus = analyzeRectangle(sides[0], sides[1]);
 			}
-			printf("Length: %lf\nHeight: %lf", sides[0], sides[1]);
 			findRectanglePerimeter(sides[0], sides[1]);
 			findRectangleArea(sides[0], sides[1]);
 			break;
