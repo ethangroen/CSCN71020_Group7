@@ -38,9 +38,9 @@ int main() {
 			printf("Rectangle selected.\n");
 			int rectanglePoints[8];
 			int* rectanglePointsPtr = getRectanglePoints(rectanglePoints);
-
-			corners = findRectangleCorners(rectanglePointsPtr);
-
+			int rectanglePointsCopy[8] = {rectanglePointsPtr[0],rectanglePointsPtr[1] ,rectanglePointsPtr[2] ,rectanglePointsPtr[3] ,rectanglePointsPtr[4],rectanglePointsPtr[5],rectanglePointsPtr[6],rectanglePointsPtr[7] };
+			corners = findRectangleCorners(rectanglePointsCopy);
+			
 			double sides[2];
 			sides[0] = sqrt(pow((corners[6] - corners[4]), 2) + pow((corners[7] - corners[5]), 2));
 			printf("\nLength: %lf", sides[0]);
