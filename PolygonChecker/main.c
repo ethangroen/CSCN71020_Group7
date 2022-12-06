@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "main.h"
 #include "triangleSolver.h"
@@ -30,7 +31,7 @@ int main() {
 				triangleStatus = isTriangleValid(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			}
 			printf("A triangle was succesfully formed\n");
-			getTriangleAngle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
+			double* angles = getTriangleAngle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			char* triangleResult = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
 			printf_s("%s\n", triangleResult);
 			break;
@@ -38,8 +39,7 @@ int main() {
 			printf("Rectangle selected.\n");
 			int rectanglePoints[8];
 			int* rectanglePointsPtr = getRectanglePoints(rectanglePoints);
-			int rectanglePointsCopy[8] = {rectanglePointsPtr[0],rectanglePointsPtr[1] ,rectanglePointsPtr[2] ,rectanglePointsPtr[3] ,rectanglePointsPtr[4],rectanglePointsPtr[5],rectanglePointsPtr[6],rectanglePointsPtr[7] };
-			corners = findRectangleCorners(rectanglePointsCopy);
+			corners = findRectangleCorners(rectanglePointsPtr);
 			
 			double sides[2];
 			sides[0] = sqrt(pow((corners[6] - corners[4]), 2) + pow((corners[7] - corners[5]), 2));
@@ -57,8 +57,8 @@ int main() {
 				printf("\nHeight: %lf", sides[1]);
 				rectangleStatus = analyzeRectangle(sides[0], sides[1]);
 			}
-			findRectanglePerimeter(sides[0], sides[1]);
-			findRectangleArea(sides[0], sides[1]);
+			int perimeter = findRectanglePerimeter(sides[0], sides[1]);
+			int area = findRectangleArea(sides[0], sides[1]);
 			break;
 		case 0:
 			continueProgram = false;
@@ -98,7 +98,10 @@ int* getTriangleSides(int* triangleSides) {
 	printf_s("Enter the three sides of the triangle: ");
 	for (int i = 0; i < 3; i++)
 	{
-		scanf_s("%d", &triangleSides[i]);
+		if (scanf_s("%d", &triangleSides[i])!=1) {
+			printf("Invalid entry");
+			exit(1);
+		}
 	}
 	return triangleSides;
 }
@@ -109,7 +112,10 @@ int* getRectanglePoints(int* rectanglePoints) {
 	for (int i = 0; i < 8; i++)
 	{
 		printf("\nenter: ");
-		scanf_s("%d", &rectanglePoints[i]);
+		if (scanf_s("%d", &rectanglePoints[i])!=1) {
+			printf("Invalid entry");
+			exit(1);
+		}
 	}
 	return rectanglePoints;
 }

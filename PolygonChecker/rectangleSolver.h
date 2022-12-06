@@ -8,6 +8,6 @@ bool analyzeRectangle(double, double);
 
 int* findRectangleCorners(int[]);
 
-void findRectanglePerimeter(double, double);
+double findRectanglePerimeter(double, double);
 
-void findRectangleArea(double, double);
+double  findRectangleArea(double, double);

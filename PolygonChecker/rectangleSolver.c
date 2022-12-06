@@ -25,7 +25,7 @@ int* findRectangleCorners(int points[]) {
 	rectangleMidPoint[1] = ((points[1] + points[3] + points[5] + points[7]) / 4);
 
 	for (int i = 0; i < 8; i++) {
-		points[i] * 1;
+		points[i] = points[i] * 1;
 	}
 
 	for (int i = 0; i <= 6; i+=2) {
@@ -46,12 +46,14 @@ int* findRectangleCorners(int points[]) {
 	return corners;
 }
 
-void findRectanglePerimeter(double length, double height) {
+double findRectanglePerimeter(double length, double height) {
 	double perimeter = 2 * (length + height);
 	printf("\nThe perimeter of the rectangle is: %lf", perimeter);
+	return perimeter;
 }
 
-void findRectangleArea(double length, double height) {
+double findRectangleArea(double length, double height) {
 	double area = length * height;
 	printf("\nThe area of the rectangle is: %lf", area);
+	return area;
 }

@@ -28,7 +28,7 @@ bool isTriangleValid(int side1, int side2, int side3) {
 	}
 	return status;
 }
-void getTriangleAngle(int side1, int side2, int side3) {
+double* getTriangleAngle(int side1, int side2, int side3) {
 	double triangleAngles[MAXARRAYSIZE];
 
 	triangleAngles[0] = acos((pow(side2, 2) + pow(side3, 2) - pow(side1, 2)) / (2 * side2 * side3)) * 180 / PI;
@@ -38,5 +38,7 @@ void getTriangleAngle(int side1, int side2, int side3) {
 	triangleAngles[2] = acos((pow(side1, 2) + pow(side2, 2) - pow(side3, 2)) / (2 * side1 * side2)) * 180 / PI;
 
 	printf("A: %lf B: %lf C: %lf\n", triangleAngles[0], triangleAngles[1], triangleAngles[2]);
+
+	return triangleAngles;
 
 }

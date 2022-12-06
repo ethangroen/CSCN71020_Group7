@@ -10,4 +10,4 @@ char* analyzeTriangle(int side1, int side2, int side3);
 
 bool isTriangleValid(int side1, int side2, int side3);
 
-void getTriangleAngle(int side1, int side2, int side3);
+double* getTriangleAngle(int side1, int side2, int side3);
